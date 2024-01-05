@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-
 import { Page, Settings } from '../../../payload/payload-types'
 import { staticCart } from '../../../payload/seed/cart-static'
 import { fetchDoc } from '../../_api/fetchDoc'
@@ -57,43 +56,17 @@ export default async function Cart() {
   }
 
   return (
-    <Fragment>
-      {!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && (
-        <Gutter>
-          <Message
-            className={classes.message}
-            warning={
-              <Fragment>
-                {'To enable checkout, you must '}
-                <a
-                  href="https://dashboard.stripe.com/test/apikeys"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {'obtain your Stripe API Keys'}
-                </a>
-                {' then set them as environment variables. See the '}
-                <a
-                  href="https://github.com/payloadcms/payload/blob/main/templates/ecommerce/README.md#stripe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {'README'}
-                </a>
-                {' for more details.'}
-              </Fragment>
-            }
-          />
-        </Gutter>
-      )}
-      <Hero {...page?.hero} />
+    <div className={classes.container}>
       <Gutter>
+        <h3>Cart</h3>
         <CartPage settings={settings} page={page} />
       </Gutter>
-      <Blocks blocks={page?.layout} />
-    </Fragment>
+      <Blocks blocks={page?.layout} disableBottomPadding/>
+    </div>
   )
 }
+
+
 
 export async function generateMetadata(): Promise<Metadata> {
   let page: Page | null = null
@@ -109,7 +82,6 @@ export async function generateMetadata(): Promise<Metadata> {
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // in production you may want to redirect to a 404  page or at least log the error somewhere
   }
-
   if (!page) {
     page = staticCart
   }

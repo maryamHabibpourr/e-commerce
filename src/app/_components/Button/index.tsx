@@ -5,6 +5,10 @@ import Link from 'next/link'
 
 import classes from './index.module.scss'
 
+
+
+
+
 export type Props = {
   label?: string
   appearance?: 'default' | 'primary' | 'secondary' | 'none'
@@ -16,7 +20,13 @@ export type Props = {
   type?: 'submit' | 'button'
   disabled?: boolean
   invert?: boolean
+  children?: React.ReactNode
 }
+
+
+
+
+
 
 export const Button: React.FC<Props> = ({
   el: elFromProps = 'link',
@@ -29,8 +39,11 @@ export const Button: React.FC<Props> = ({
   type = 'button',
   disabled,
   invert,
+  children,
 }) => {
   let el = elFromProps
+
+
 
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 
@@ -43,9 +56,12 @@ export const Button: React.FC<Props> = ({
     .filter(Boolean)
     .join(' ')
 
+
+    
   const content = (
     <div className={classes.content}>
       <span className={classes.label}>{label}</span>
+      {children}
     </div>
   )
 

@@ -1,7 +1,6 @@
 import React, { forwardRef, Ref } from 'react'
 
 import classes from './index.module.scss'
-
 type Props = {
   left?: boolean
   right?: boolean
